@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/all.min.css" />
+
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-light fixed-top"
+      id="mainNav"
+    >
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#"
+          >Rock Paper Scissors</a
+        >
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container wrapper">
+      <div class="score-board">
+        <div id="user-label" class="badge">User</div>
+        <div id="comp-label" class="badge">computer</div>
+
+        <span id="user-score">0</span>:<span id="comp-score">0</span>
+      </div>
+
+      <div id="result"></div>
+
+      <div class="choices">
+        <div class="choice" id="rock">
+          <img src="assets/images/RPS-Rock.png" alt="" />
+        </div>
+        <div class="choice" id="paper">
+          <img src="assets/images/RPS-Paper.png" alt="" />
+        </div>
+        <div class="choice" id="scissors">
+          <img src="assets/images/RPS-Scissors.png" alt="" />
+        </div>
+      </div>
+      <div class="game-message">Start your move!</div>
+    </div>
+
+    <!-- js scripts -->
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/game.js"></script>
+    <!-- js scripts  -->
+  </body>
+</html>
