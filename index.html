@@ -26,12 +26,28 @@
 
     <!-- Main content -->
     <div class="container wrapper">
+      <div class="row justify-content-center user-info">
+        <div class="form-inline">
+          <input
+            type="text"
+            class="form-control mb-2 mr-sm-2"
+            id="new-user"
+            placeholder="Type your name here"
+            required
+          />
+          <button type="submit" id="submit-user" class="btn btn-default mb-2">
+            Start
+          </button>
+        </div>
+      </div>
+
       <div class="score-board">
         <div id="user-label" class="badge">User</div>
         <div id="comp-label" class="badge">computer</div>
-
         <span id="user-score">0</span>:<span id="comp-score">0</span>
       </div>
+
+      <div class="waiting-notice"></div>
 
       <div id="result"></div>
 
@@ -50,6 +66,7 @@
     </div>
 
     <!-- js scripts -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
     <script src="assets/js/jquery-3.3.1.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/game.js"></script>

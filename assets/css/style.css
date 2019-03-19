@@ -71,3 +71,23 @@ body {
   margin: 25px;
   font-weight: 700;
 }
+
+.user-info {
+  margin: 20px 0px;
+}
+
+.user-info .btn,
+.user-info .btn:hover {
+  background-color: #d63b3b;
+  color: #fff;
+}
+
+.user-info .btn:focus {
+  box-shadow: none;
+}
+
+.waiting-notice {
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+}
