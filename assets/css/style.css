@@ -61,8 +61,8 @@ body {
 }
 
 .choice img {
-  max-width: 80px;
-  max-height: 80px;
+  max-width: 50px;
+  max-height: 50px;
 }
 
 .game-message {
@@ -90,4 +90,10 @@ body {
   text-align: center;
   padding: 10px;
   color: #fff;
+}
+
+#p1,
+#p2 {
+  margin: 10px 0px;
+  text-align: center;
 }
