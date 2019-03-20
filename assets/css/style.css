@@ -47,10 +47,6 @@ body {
   right: -35px;
 }
 
-.choices {
-  text-align: center;
-}
-
 .choice {
   display: inline-block;
   padding: 20px;

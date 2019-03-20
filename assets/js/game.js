@@ -22,6 +22,7 @@ $(document).ready(function() {
   // get players data
   var getPlayers = function() {
     database.ref('/players').on('value', function(snapshot) {
+      showHideChoices();
       // Check if player 1 exists in the database
       if (snapshot.child('p1').exists()) {
         // Record player1 data
@@ -83,6 +84,7 @@ $(document).ready(function() {
           }
         } else if (snapshot.val() === 2) {
           turn = 2;
+
           if (p1 && p2) {
             $('.waiting-notice').text(
               'Waiting on ' + p2.name + ' to choose...'
@@ -91,6 +93,31 @@ $(document).ready(function() {
         }
       }
     });
+  };
+
+  // show & hide choices based on the player
+  var showHideChoices = function() {
+    if (p1 && yourPlayerName == p1.name) {
+      displayChoices(1);
+      hideChoices(2);
+    }
+
+    if (p2 && yourPlayerName == p2.name) {
+      displayChoices(2);
+      hideChoices(1);
+    }
+  };
+
+  // clears out choices
+  var hideChoices = function(player) {
+    $('#p' + player).html('<div></div>');
+  };
+
+  // displays all choices
+  var displayChoices = function(player) {
+    $('#p' + player).html(
+      '<div class="choice" id="rock"><img src="assets/images/RPS-Rock.png" alt="" /></div><div class="choice" id="paper"><img src="assets/images/RPS-Paper.png" alt="" /></div><div class="choice" id="scissors"><img src="assets/images/RPS-Scissors.png" alt="" /></div>'
+    );
   };
 
   // On-click function for submitting a name.
@@ -158,9 +185,9 @@ $(document).ready(function() {
     }
   });
 
-  //player 1 click handler
+  // player 1 click handler
   $('#p1').on('click', '.choice', function() {
-    if (p1 && p2 && yourPlayerName == p1.name) {
+    if (p1 && p2 && yourPlayerName == p1.name && turn == 1) {
       choice = $(this).attr('id');
 
       database
@@ -177,18 +204,92 @@ $(document).ready(function() {
     }
   });
 
-  //player 2 click handler
+  // player 2 click handler
   $('#p2').on('click', '.choice', function() {
-    if (p1 && p2 && yourPlayerName == p2.name) {
+    if (p1 && p2 && yourPlayerName == p2.name && turn == 2) {
       choice = $(this).attr('id');
 
       database
         .ref()
         .child('/players/p2/choice')
         .set(choice);
+
+      checkGame();
     }
   });
 
+  // show game result
+  var getOutcome = function() {
+    database.ref('/outcome').on('value', function(snapshot) {
+      if (!snapshot.val()) {
+        $('.game-message').text('Start your move!');
+      } else {
+        $('.game-message').text(snapshot.val());
+      }
+    });
+  };
+
+  // check the game status and record the result to the database
+  function checkGame() {
+    if (p1.choice == p2.choice) {
+      database
+        .ref()
+        .child('/players/p1/tie')
+        .set(p1.tie + 1);
+      database
+        .ref()
+        .child('/players/p2/tie')
+        .set(p2.tie + 1);
+
+      database
+        .ref()
+        .child('/outcome')
+        .set('Tie!');
+    } else if (
+      (p1.choice == 'rock' && p2.choice == 'scissors') ||
+      (p1.choice == 'paper' && p2.choice == 'rock') ||
+      (p1.choice == 'scissors' && p2.choice == 'paper')
+    ) {
+      database
+        .ref()
+        .child('/players/p1/win')
+        .set(p1.win + 1);
+      database
+        .ref()
+        .child('/players/p2/loss')
+        .set(p2.loss + 1);
+
+      database
+        .ref()
+        .child('/outcome')
+        .set(p1.choice + ' win!');
+    } else {
+      database
+        .ref()
+        .child('/players/p1/loss')
+        .set(p1.loss + 1);
+      database
+        .ref()
+        .child('/players/p2/win')
+        .set(p2.win + 1);
+
+      database
+        .ref()
+        .child('/outcome')
+        .set(p2.choice + ' win!');
+    }
+
+    setTimeout(function() {
+      turn = 1;
+
+      database
+        .ref()
+        .child('/turn')
+        .set(turn);
+    }, 3000);
+  }
+
   getPlayers();
   getTurn();
+  getOutcome();
 });
